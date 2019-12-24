@@ -1,0 +1,28 @@
+---
+title: "Report on FIFA 2019 players" 
+author: "Jeffrey Shi"
+fontsize: 12pt
+geometry: margin=1in
+urlcolor: black
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, highlight=FALSE)
+```
+For this report, I have chosen to analyze a dataset on players available in FIFA 2019.
+```{r}
+fifa<-read.csv("data.csv")
+```
+This dataset is very large, with 89 columns, some of which are not needed, specifically Photo and Flag. First, I will clean up the dataset to only relevant/important data. 
+```{r}
+drops<-c("Photo", "Flag", "Club.logo" )
+head(fifa[ ,!(names(fifa) %in% drops)][,1:6])
+```
+Looking at just the first few rows we notice something interesting about the ID of each player. All except for Christiano Ronaldo's is a six digit number. Christiano Ronaldo's is a 5 digit. Taking a look at some statistics about the ID number:
+```{r}
+max(fifa$ID)
+min(fifa$ID)
+minimum<-match(min(fifa$ID), fifa$ID)
+minimum
+```
